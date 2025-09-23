@@ -8,7 +8,7 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE}
       # OpenTelemetry auto-instrumentation
-      OTEL_SERVICE_NAME: template
+      OTEL_SERVICE_NAME: corebank
       OTEL_RESOURCE_ATTRIBUTES: deployment.environment=dev
       DEPLOYMENT_ENVIRONMENT_NAME: dev
       OTEL_TRACES_EXPORTER: otlp

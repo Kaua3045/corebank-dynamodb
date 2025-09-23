@@ -8,7 +8,7 @@
     <appender name="stdout_plain" class="ConsoleAppender">
         <encoder
                 class="ch.qos.logback.core.encoder.LayoutWrappingEncoder"> <!-- https://www.codelord.net/2010/08/27/logging-with-a-context-users-in-logback-and-spring-security/ -->
-            <layout class="com.kaua.template.infrastructure.configurations.logback.PatternLayoutWithAttributes">
+            <layout class="com.kaua.corebank.infrastructure.configurations.logback.PatternLayoutWithAttributes">
                 <pattern> <!-- https://github.com/onready/demo-spring-security-logging-pattern -->
                     %d{HH:mm:ss.SSSZZ} [%thread] [%X{traceId}] [%X{spanId}] [%user] %-5level %logger{36} - %msg%n
                 </pattern>
@@ -23,7 +23,7 @@
 
     <!-- enable DEBUG only for the application -->
     <logger name="store" level="DEBUG"/>
-    <logger name="com.kaua.template" level="DEBUG"/>
+    <logger name="com.kaua.corebank" level="DEBUG"/>
 
     <root level="INFO">
         <appender-ref ref="stdout_plain"/>

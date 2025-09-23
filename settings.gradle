@@ -1,4 +1,4 @@
-rootProject.name = 'java-template-modules'
+rootProject.name = 'corebank-dynamodb'
 include 'domain'
 include 'application'
 include 'infrastructure'

@@ -7,7 +7,7 @@ plugins {
     id 'org.flywaydb.flyway' version '10.13.0'
 }
 
-group = 'com.kaua.template.infrastructure'
+group = 'com.kaua.corebank.infrastructure'
 
 bootJar {
     archiveFileName = 'application.jar'
@@ -17,7 +17,7 @@ bootJar {
 springBoot {
     buildInfo {
         properties {
-            name = 'java-template'
+            name = 'corebank'
         }
     }
 }
@@ -70,7 +70,7 @@ dependencies {
 }
 
 flyway { // Flyway configuration change this to match your database
-    url = 'jdbc:postgresql://' + System.getenv('DATABASE_POSTGRESQL_URL') + '/template' ?: 'jdbc:postgresql://localhost:5432/template'
+    url = 'jdbc:postgresql://' + System.getenv('DATABASE_POSTGRESQL_URL') + '/corebank' ?: 'jdbc:postgresql://localhost:5432/corebank'
     user = System.getenv('DATABASE_POSTGRESQL_USERNAME') ?: 'postgres'
     password = System.getenv('DATABASE_POSTGRESQL_PASSWORD') ?: '123456'
 }
@@ -80,8 +80,8 @@ jacocoTestReport {
         classDirectories.setFrom(
                 files(classDirectories.files.collect {
                     fileTree(dir: it, exclude: [
-                            'com/kaua/template/infrastructure/configurations/*',
-                            'com/kaua/template/infrastructure/Main.class'
+                            'com/kaua/corebank/infrastructure/configurations/*',
+                            'com/kaua/corebank/infrastructure/Main.class'
                     ])
                 })
         )
@@ -102,8 +102,8 @@ testCodeCoverageReport {
         classDirectories.setFrom(
                 files(classDirectories.files.collect {
                     fileTree(dir: it, exclude: [
-                            'com/kaua/template/infrastructure/configurations/*',
-                            'com/kaua/template/infrastructure/Main.class'
+                            'com/kaua/corebank/infrastructure/configurations/*',
+                            'com/kaua/corebank/infrastructure/Main.class'
                     ])
                 })
         )
@@ -115,8 +115,8 @@ jacocoTestCoverageVerification {
         classDirectories.setFrom(
                 files(classDirectories.files.collect {
                     fileTree(dir: it, exclude: [
-                            'com/kaua/template/infrastructure/configurations/*',
-                            'com/kaua/template/infrastructure/Main.class'
+                            'com/kaua/corebank/infrastructure/configurations/*',
+                            'com/kaua/corebank/infrastructure/Main.class'
                     ])
                 })
         )

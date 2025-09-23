@@ -1,4 +1,4 @@
-# Plataform de Eventos
+# CoreBank DynamoDB
 
 ## Ferramentas utilizadas
 ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white)
@@ -9,16 +9,17 @@
 
 ## Sobre
 
-Uma plataforma muito parecida com a Sympla. Criar e gerenciar eventos e tickets.
+Um core bank simples, com operações do dia a dia, como criar conta, fazer depósito, saque e transferência.
 
-- Porquê decidiu fazer esse projeto?
-  - Decidi fazer esse projeto para aprender mais sobre clean architecture, DDD e SOLID. Além de aprender mais sobre o Spring e o Java. Deploys com k8s, docker e argoCD.
+- Porquê esse projeto?
 
+  - Decidi fazer esse projeto para aprender mais sobre dynamodb, AWS SDK, kinesis, firehose e clickhouse. Além de aprender terraform.
 - Quais foram os desafios de implementá-lo?
-  - Foi um desafio muito grande implementar toda a parte de CD, com k8s, docker e argoCD, além disso o projeto é muito complexo, são muitas regras de negócio e validações, o que torna o projeto muito interessante.
 
+  - Foi um desafio muito grande implementar toda a parte de AWS, com dynamodb, kinesis, firehose e clickhouse, além disso o projeto é muito complexo, são muitas regras de negócio e validações, o que torna o projeto muito interessante.
 - O que eu aprendi com ele?
-  - Aprendi como implementar CD com k8s, docker e argoCD. Além disso aprendi muito sobre tipos de deploy, como configurar um projeto, toda a parte de segurança e boas práticas.
+
+  - Aprendi como implementar uma aplicação com dynamodb, kinesis, firehose e clickhouse. Além disso aprendi muito sobre terraform, como configurar um projeto, toda a parte de segurança e boas práticas.
 
 ## Tabela de conteúdos
 

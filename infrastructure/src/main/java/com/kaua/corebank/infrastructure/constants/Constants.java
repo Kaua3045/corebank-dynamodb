@@ -5,6 +5,8 @@ public final class Constants {
     private Constants() {
     }
 
+    public static final String DYNAMO_DB_TABLE = "corebank-table";
+
     public static final String JWT_CLAIM_TYPE = "type";
     public static final String SERVICE_TYPE = "service";
     public static final String USER_TYPE = "user";

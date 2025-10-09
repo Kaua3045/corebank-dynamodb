@@ -4,6 +4,12 @@ application:
   name: corebank
   environment: ${DEPLOYMENT_ENVIRONMENT_NAME:dev}
   instance: corebank-01
+  dynamodb:
+    local: true
+    endpoint: http://localhost:4566
+    region: us-east-1
+    access-key-id: test
+    secret-access-key: test
 
 redis:
   host: localhost

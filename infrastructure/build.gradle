@@ -40,6 +40,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
 
+    implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0"
+
     implementation "io.opentelemetry:opentelemetry-api:$opentelemetryVersion"
     implementation "io.opentelemetry:opentelemetry-sdk:$opentelemetryVersion"
     implementation "io.opentelemetry:opentelemetry-sdk-testing:$opentelemetryVersion"
@@ -47,6 +49,8 @@ dependencies {
     implementation "io.micrometer:micrometer-core"
     implementation "io.micrometer:micrometer-registry-prometheus"
     implementation "io.micrometer:micrometer-registry-otlp"
+
+    implementation 'software.amazon.awssdk:dynamodb:2.25.62'
 
     implementation 'ch.qos.logback:logback-core:1.5.15'
     implementation 'ch.qos.logback:logback-classic:1.5.15'
@@ -67,7 +71,10 @@ dependencies {
 
     testImplementation 'org.testcontainers:testcontainers'
     testImplementation 'org.testcontainers:junit-jupiter'
+    testImplementation 'org.testcontainers:localstack:1.19.1'
 }
+
+
 
 flyway { // Flyway configuration change this to match your database
     url = 'jdbc:postgresql://' + System.getenv('DATABASE_POSTGRESQL_URL') + '/corebank' ?: 'jdbc:postgresql://localhost:5432/corebank'

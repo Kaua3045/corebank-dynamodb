@@ -1,0 +1,13 @@
+services:
+  localstack:
+    image: localstack/localstack:3.5
+    container_name: corebank-localstack
+    ports:
+      - "4566:4566" # unique endpoint for all services
+    environment:
+      - SERVICES=dynamodb,dynamodbstreams
+      - DEBUG=1
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
+    volumes:
+      - "./localstack-init:/etc/localstack/init/ready.d"

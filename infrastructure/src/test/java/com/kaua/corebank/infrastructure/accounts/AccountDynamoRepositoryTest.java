@@ -3,6 +3,7 @@ package com.kaua.corebank.infrastructure.accounts;
 import com.kaua.corebank.AbstractDynamoDbConfig;
 import com.kaua.corebank.IntegrationTest;
 import com.kaua.corebank.application.repositories.AccountRepository;
+import com.kaua.corebank.domain.Fixture;
 import com.kaua.corebank.domain.accounts.Account;
 import com.kaua.corebank.domain.accounts.DocumentFactory;
 import com.kaua.corebank.domain.accounts.valueobjects.Email;
@@ -129,5 +130,36 @@ class AccountDynamoRepositoryTest extends AbstractDynamoDbConfig {
         final var existsByDocument = Assertions.assertDoesNotThrow(() -> this.accountRepository.existsByDocument(aDocumentNumber, aDocumentType));
 
         Assertions.assertFalse(existsByDocument);
+    }
+
+    @Test
+    void givenAnExistingAccountId_whenCallsAccountOfId_thenShouldReturnAccount() {
+        final var aAccount = Fixture.AccountFixture.newAccount();
+        final var aAccountId = aAccount.getId().value().toString();
+
+        Assertions.assertDoesNotThrow(() -> this.accountRepository.save(aAccount));
+
+        final var aRetrievedAccount = Assertions.assertDoesNotThrow(() -> this.accountRepository.accountOfId(aAccountId));
+
+        Assertions.assertTrue(aRetrievedAccount.isPresent());
+        Assertions.assertEquals(aAccountId, aRetrievedAccount.get().getId().value().toString());
+        Assertions.assertEquals(aAccount.getName(), aRetrievedAccount.get().getName());
+        Assertions.assertEquals(aAccount.getEmail(), aRetrievedAccount.get().getEmail());
+        Assertions.assertEquals(aAccount.getDocument(), aRetrievedAccount.get().getDocument());
+        Assertions.assertEquals(aAccount.getUserId(), aRetrievedAccount.get().getUserId());
+        Assertions.assertEquals(aAccount.isActive(), aRetrievedAccount.get().isActive());
+        Assertions.assertEquals(aAccount.getBalance(), aRetrievedAccount.get().getBalance());
+        Assertions.assertEquals(aAccount.getCreatedAt(), aRetrievedAccount.get().getCreatedAt());
+        Assertions.assertEquals(aAccount.getUpdatedAt(), aRetrievedAccount.get().getUpdatedAt());
+        Assertions.assertEquals(aAccount.getVersion(), aRetrievedAccount.get().getVersion());
+    }
+
+    @Test
+    void givenANonExistingAccountId_whenCallsAccountOfId_thenShouldReturnEmpty() {
+        final var aAccountId = "non-exists";
+
+        final var aRetrievedAccount = Assertions.assertDoesNotThrow(() -> this.accountRepository.accountOfId(aAccountId));
+
+        Assertions.assertTrue(aRetrievedAccount.isEmpty());
     }
 }

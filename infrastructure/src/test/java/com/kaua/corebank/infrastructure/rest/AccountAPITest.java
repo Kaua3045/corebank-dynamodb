@@ -4,6 +4,9 @@ import com.kaua.corebank.ApiTest;
 import com.kaua.corebank.ControllerTest;
 import com.kaua.corebank.application.usecases.accounts.create.CreateAccountOutput;
 import com.kaua.corebank.application.usecases.accounts.create.CreateAccountUseCase;
+import com.kaua.corebank.application.usecases.accounts.retrieve.get.GetAccountByIdOutput;
+import com.kaua.corebank.application.usecases.accounts.retrieve.get.GetAccountByIdUseCase;
+import com.kaua.corebank.domain.Fixture;
 import com.kaua.corebank.domain.utils.ULID;
 import com.kaua.corebank.infrastructure.idempotency.IdempotencyKey;
 import org.junit.jupiter.api.Test;
@@ -14,7 +17,10 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
+import java.math.RoundingMode;
+
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -26,6 +32,9 @@ class AccountAPITest {
 
     @MockitoBean
     private CreateAccountUseCase createAccountUseCase;
+
+    @MockitoBean
+    private GetAccountByIdUseCase getAccountByIdUseCase;
 
     @Test
     void givenAValidRequest_whenCallsCreateAccount_thenShouldReturn201AndAccountId() throws Exception {
@@ -77,5 +86,40 @@ class AccountAPITest {
                 .andExpect(jsonPath("$.user_id").value(aUserId));
 
         Mockito.verify(createAccountUseCase, Mockito.times(1)).execute(Mockito.any());
+    }
+
+    @Test
+    void givenAValidId_whenCallsGetAccountById_thenShouldReturn200AndAccount() throws Exception {
+        final var aAccount = Fixture.AccountFixture.newAccount();
+        final var aAccountId = aAccount.getId().value().toString();
+
+        Mockito.when(getAccountByIdUseCase.execute(Mockito.any()))
+                .thenReturn(GetAccountByIdOutput.from(aAccount));
+
+        final var aRequest = get("/v1/accounts/{accountId}", aAccountId)
+                .with(ApiTest.admin())
+                .with(csrf())
+                .accept(MediaType.APPLICATION_JSON_VALUE)
+                .contentType(MediaType.APPLICATION_JSON_VALUE);
+
+        final var aResponse = this.mvc.perform(aRequest);
+
+        aResponse
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().isOk())
+                .andExpect(header().string("Content-Type", MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(jsonPath("$.account_id").value(aAccountId))
+                .andExpect(jsonPath("$.first_name").value(aAccount.getName().firstName()))
+                .andExpect(jsonPath("$.last_name").value(aAccount.getName().lastName()))
+                .andExpect(jsonPath("$.email").value(aAccount.getEmail().value()))
+                .andExpect(jsonPath("$.document_number").value(aAccount.getDocument().formattedValue()))
+                .andExpect(jsonPath("$.document_type").value(aAccount.getDocument().type()))
+                .andExpect(jsonPath("$.user_id").value(aAccount.getUserId()))
+                .andExpect(jsonPath("$.is_active").value(aAccount.isActive()))
+                .andExpect(jsonPath("$.balance").value(aAccount.getBalance().amount().setScale(1, RoundingMode.HALF_UP)))
+                .andExpect(jsonPath("$.created_at").isNotEmpty())
+                .andExpect(jsonPath("$.updated_at").isNotEmpty());
+
+        Mockito.verify(getAccountByIdUseCase, Mockito.times(1)).execute(Mockito.any());
     }
 }

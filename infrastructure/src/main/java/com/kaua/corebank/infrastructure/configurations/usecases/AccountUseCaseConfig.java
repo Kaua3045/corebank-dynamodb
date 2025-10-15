@@ -3,6 +3,8 @@ package com.kaua.corebank.infrastructure.configurations.usecases;
 import com.kaua.corebank.application.repositories.AccountRepository;
 import com.kaua.corebank.application.usecases.accounts.create.CreateAccountUseCase;
 import com.kaua.corebank.application.usecases.accounts.create.DefaultCreateAccountUseCase;
+import com.kaua.corebank.application.usecases.accounts.retrieve.get.DefaultGetAccountByIdUseCase;
+import com.kaua.corebank.application.usecases.accounts.retrieve.get.GetAccountByIdUseCase;
 import com.kaua.corebank.application.wrapper.TracerWrapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +20,15 @@ public class AccountUseCaseConfig {
         return new DefaultCreateAccountUseCase(
                 accountRepository,
                 tracerWrapper
+        );
+    }
+
+    @Bean
+    public GetAccountByIdUseCase getAccountByIdUseCase(
+            final AccountRepository accountRepository
+    ) {
+        return new DefaultGetAccountByIdUseCase(
+                accountRepository
         );
     }
 }

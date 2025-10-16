@@ -3,7 +3,6 @@ package com.kaua.corebank.domain.accounts;
 import com.kaua.corebank.domain.AggregateRoot;
 import com.kaua.corebank.domain.accounts.valueobjects.Document;
 import com.kaua.corebank.domain.accounts.valueobjects.Email;
-import com.kaua.corebank.domain.valueobjects.Money;
 import com.kaua.corebank.domain.accounts.valueobjects.Name;
 import com.kaua.corebank.domain.utils.IdentifierUtils;
 import com.kaua.corebank.domain.utils.InstantUtils;
@@ -18,7 +17,6 @@ public class Account extends AggregateRoot<AccountId> {
     private Document document;
     private String userId;
     private boolean isActive;
-    private Money balance;
     private Instant createdAt;
     private Instant updatedAt;
 
@@ -30,7 +28,6 @@ public class Account extends AggregateRoot<AccountId> {
             final Document aDocument,
             final String aUserId,
             final boolean isActive,
-            final Money aBalance,
             final Instant aCreatedAt,
             final Instant aUpdatedAt
     ) {
@@ -40,7 +37,6 @@ public class Account extends AggregateRoot<AccountId> {
         this.setDocument(aDocument);
         this.setUserId(aUserId);
         this.setActive(isActive);
-        this.setBalance(aBalance);
         this.setCreatedAt(aCreatedAt);
         this.setUpdatedAt(aUpdatedAt);
     }
@@ -61,7 +57,6 @@ public class Account extends AggregateRoot<AccountId> {
                 aDocument,
                 aUserId,
                 true,
-                Money.zero(),
                 aNow,
                 aNow
         );
@@ -75,7 +70,6 @@ public class Account extends AggregateRoot<AccountId> {
             final Document aDocument,
             final String aUserId,
             final boolean isActive,
-            final Money aBalance,
             final Instant aCreatedAt,
             final Instant aUpdatedAt
     ) {
@@ -87,7 +81,6 @@ public class Account extends AggregateRoot<AccountId> {
                 aDocument,
                 aUserId,
                 isActive,
-                aBalance,
                 aCreatedAt,
                 aUpdatedAt
         );
@@ -111,10 +104,6 @@ public class Account extends AggregateRoot<AccountId> {
 
     public boolean isActive() {
         return isActive;
-    }
-
-    public Money getBalance() {
-        return balance;
     }
 
     public Instant getCreatedAt() {
@@ -145,10 +134,6 @@ public class Account extends AggregateRoot<AccountId> {
         this.isActive = active;
     }
 
-    private void setBalance(final Money balance) {
-        this.balance = this.assertArgumentNotNull(balance, "balance", "should not be null");
-    }
-
     private void setCreatedAt(final Instant createdAt) {
         this.createdAt = this.assertArgumentNotNull(createdAt, "createdAt", "should not be null");
     }
@@ -171,7 +156,6 @@ public class Account extends AggregateRoot<AccountId> {
                 ", document=" + document + // TODO mask document
                 ", userId='" + userId + '\'' +
                 ", isActive=" + isActive +
-                ", balance=" + balance +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 ')';

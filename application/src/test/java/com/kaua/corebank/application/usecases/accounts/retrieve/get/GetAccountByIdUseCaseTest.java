@@ -44,7 +44,6 @@ class GetAccountByIdUseCaseTest extends UseCaseTest {
         Assertions.assertEquals(aAccount.getCreatedAt(), aOutput.createdAt());
         Assertions.assertEquals(aAccount.getUpdatedAt(), aOutput.updatedAt());
         Assertions.assertEquals(aAccount.isActive(), aOutput.isActive());
-        Assertions.assertEquals(aAccount.getBalance().amount(), aOutput.balance());
 
         Mockito.verify(accountRepository, Mockito.times(1))
                 .accountOfId(aAccountId);

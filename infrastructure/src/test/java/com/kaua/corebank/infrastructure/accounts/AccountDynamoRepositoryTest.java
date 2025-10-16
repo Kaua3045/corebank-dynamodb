@@ -54,7 +54,6 @@ class AccountDynamoRepositoryTest extends AbstractDynamoDbConfig {
         Assertions.assertEquals(aAccount.getDocument(), aSavedAccount.getDocument());
         Assertions.assertEquals(aAccount.getUserId(), aSavedAccount.getUserId());
         Assertions.assertEquals(aAccount.isActive(), aSavedAccount.isActive());
-        Assertions.assertEquals(aAccount.getBalance(), aSavedAccount.getBalance());
         Assertions.assertEquals(aAccount.getCreatedAt(), aSavedAccount.getCreatedAt());
         Assertions.assertEquals(aAccount.getUpdatedAt(), aSavedAccount.getUpdatedAt());
     }
@@ -148,7 +147,6 @@ class AccountDynamoRepositoryTest extends AbstractDynamoDbConfig {
         Assertions.assertEquals(aAccount.getDocument(), aRetrievedAccount.get().getDocument());
         Assertions.assertEquals(aAccount.getUserId(), aRetrievedAccount.get().getUserId());
         Assertions.assertEquals(aAccount.isActive(), aRetrievedAccount.get().isActive());
-        Assertions.assertEquals(aAccount.getBalance(), aRetrievedAccount.get().getBalance());
         Assertions.assertEquals(aAccount.getCreatedAt(), aRetrievedAccount.get().getCreatedAt());
         Assertions.assertEquals(aAccount.getUpdatedAt(), aRetrievedAccount.get().getUpdatedAt());
         Assertions.assertEquals(aAccount.getVersion(), aRetrievedAccount.get().getVersion());

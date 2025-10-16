@@ -116,7 +116,6 @@ class AccountAPITest {
                 .andExpect(jsonPath("$.document_type").value(aAccount.getDocument().type()))
                 .andExpect(jsonPath("$.user_id").value(aAccount.getUserId()))
                 .andExpect(jsonPath("$.is_active").value(aAccount.isActive()))
-                .andExpect(jsonPath("$.balance").value(aAccount.getBalance().amount().setScale(1, RoundingMode.HALF_UP)))
                 .andExpect(jsonPath("$.created_at").isNotEmpty())
                 .andExpect(jsonPath("$.updated_at").isNotEmpty());
 

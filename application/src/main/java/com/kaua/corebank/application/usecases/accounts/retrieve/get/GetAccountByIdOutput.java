@@ -14,7 +14,6 @@ public record GetAccountByIdOutput(
         String documentNumber,
         String documentType,
         boolean isActive,
-        BigDecimal balance,
         Instant createdAt,
         Instant updatedAt,
         long version
@@ -30,7 +29,6 @@ public record GetAccountByIdOutput(
                 aAccount.getDocument().formattedValue(),
                 aAccount.getDocument().type(),
                 aAccount.isActive(),
-                aAccount.getBalance().amount(),
                 aAccount.getCreatedAt(),
                 aAccount.getUpdatedAt(),
                 aAccount.getVersion()

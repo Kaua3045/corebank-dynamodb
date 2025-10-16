@@ -15,7 +15,6 @@ public record GetAccountByIdResponse(
         @JsonProperty("document_number") String documentNumber,
         @JsonProperty("document_type") String documentType,
         @JsonProperty("is_active") boolean isActive,
-        @JsonProperty("balance") BigDecimal balance,
         @JsonProperty("created_at") Instant createdAt,
         @JsonProperty("updated_at") Instant updatedAt,
         @JsonProperty("version") long version
@@ -31,7 +30,6 @@ public record GetAccountByIdResponse(
                 aOutput.documentNumber(),
                 aOutput.documentType(),
                 aOutput.isActive(),
-                aOutput.balance(),
                 aOutput.createdAt(),
                 aOutput.updatedAt(),
                 aOutput.version()

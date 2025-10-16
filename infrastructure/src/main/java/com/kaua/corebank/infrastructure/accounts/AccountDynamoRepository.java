@@ -8,7 +8,6 @@ import com.kaua.corebank.domain.accounts.valueobjects.Email;
 import com.kaua.corebank.domain.accounts.valueobjects.Name;
 import com.kaua.corebank.domain.utils.InstantUtils;
 import com.kaua.corebank.domain.utils.ULID;
-import com.kaua.corebank.domain.valueobjects.Money;
 import com.kaua.corebank.infrastructure.constants.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Component;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.*;
 
-import java.math.BigDecimal;
 import java.util.*;
 
 @Component
@@ -92,7 +90,6 @@ public class AccountDynamoRepository implements AccountRepository {
         accountItem.put("DocumentNumber", AttributeValue.fromS(account.getDocument().value()));
         accountItem.put("DocumentType", AttributeValue.fromS(account.getDocument().type()));
         accountItem.put("IsActive", AttributeValue.fromBool(account.isActive()));
-        accountItem.put("Balance", AttributeValue.fromN(account.getBalance().amount().toString()));
         accountItem.put("CreatedAt", AttributeValue.fromS(account.getCreatedAt().toString()));
         accountItem.put("UpdatedAt", AttributeValue.fromS(account.getUpdatedAt().toString()));
 
@@ -140,7 +137,6 @@ public class AccountDynamoRepository implements AccountRepository {
                 DocumentFactory.create(item.get("DocumentNumber").s(), item.get("DocumentType").s()),
                 item.get("UserId").s(),
                 item.get("IsActive").bool(),
-                new Money(new BigDecimal(item.get("Balance").n())),
                 InstantUtils.fromString(item.get("CreatedAt").s()).orElse(null),
                 InstantUtils.fromString(item.get("UpdatedAt").s()).orElse(null)
         );

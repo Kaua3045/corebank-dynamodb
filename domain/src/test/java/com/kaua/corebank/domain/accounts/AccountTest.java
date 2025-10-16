@@ -45,7 +45,6 @@ class AccountTest extends UnitTest {
         Assertions.assertEquals(aDocument.value(), anAccount.getDocument().value());
         Assertions.assertEquals(aUserId, anAccount.getUserId());
         Assertions.assertTrue(anAccount.isActive());
-        Assertions.assertEquals(0.0, anAccount.getBalance().amount().doubleValue());
         Assertions.assertNotNull(anAccount.getCreatedAt());
         Assertions.assertNotNull(anAccount.getUpdatedAt());
         Assertions.assertDoesNotThrow(() -> anAccount.validate(NotificationHandler.create()));
@@ -77,7 +76,6 @@ class AccountTest extends UnitTest {
                 aDocument,
                 aUserId,
                 isActive,
-                new Money(new BigDecimal(aBalance)),
                 aNow,
                 aNow
         );
@@ -93,7 +91,6 @@ class AccountTest extends UnitTest {
         Assertions.assertEquals(aDocument.value(), anAccount.getDocument().value());
         Assertions.assertEquals(aUserId, anAccount.getUserId());
         Assertions.assertTrue(anAccount.isActive());
-        Assertions.assertEquals(aBalance, anAccount.getBalance().amount().doubleValue());
         Assertions.assertEquals(aNow, anAccount.getCreatedAt());
         Assertions.assertEquals(aNow, anAccount.getUpdatedAt());
         Assertions.assertDoesNotThrow(() -> anAccount.validate(NotificationHandler.create()));
@@ -127,7 +124,6 @@ class AccountTest extends UnitTest {
                 ", document=" + anAccount.getDocument() +
                 ", userId='" + anAccount.getUserId() + '\'' +
                 ", isActive=" + anAccount.isActive() +
-                ", balance=" + anAccount.getBalance() +
                 ", createdAt=" + anAccount.getCreatedAt() +
                 ", updatedAt=" + anAccount.getUpdatedAt() +
                 ')';
